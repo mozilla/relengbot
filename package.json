@@ -11,7 +11,8 @@
     "hubot-heroku-keepalive": "0.0.4",
     "hubot-irc": "^0.2.7",
     "hubot-redis-brain": "0.0.2",
-    "hubot-scripts": "^2.5.16"
+    "hubot-scripts": "^2.5.16",
+    "hubot-sns": "^0.2.1"
   },
   "engines": {
     "node": "0.10.x"
