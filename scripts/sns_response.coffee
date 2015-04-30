@@ -63,7 +63,6 @@ module.exports = (robot) ->
             Subject:    #{msg.subject}
             Message:    #{msg.message}
         """
-        publish = robot.brain.get('sns-publish-irc-messages')
         return if not snsConfig.status()
 
         alert = JSON.parse(msg.message)

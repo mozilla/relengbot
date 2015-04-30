@@ -1,1 +1,1 @@
-web: bin/hubot -a irc -n relengbot
+web: bin/hubot -a irc
