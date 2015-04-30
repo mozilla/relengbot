@@ -26,11 +26,11 @@ moment = require 'moment-timezone'
 module.exports = (robot) ->
     robot.hear /sns off/, (res) ->
         robot.brain.set 'sns-publish-irc-messages', false
-        res.reply "Thanks! I will stop publishing SNS notifications to IRC."
+        res.reply "Thanks! Stopping SNS notification to IRC."
 
     robot.hear /sns on/, (res) ->
         robot.brain.set 'sns-publish-irc-messages', true
-        res.reply "Thanks! I will start publishing SNS notifications to IRC."
+        res.reply "Thanks! Starting SNS notification to IRC."
 
     robot.on "sns:notification", (msg) ->
         """
@@ -49,4 +49,4 @@ module.exports = (robot) ->
         # timestamp hostname program message
         # parse the date
         m = new moment(alert.default.received_at)
-        robot.messageRoom "#releng-hubot-test", "[sns alert] #{m.tz('America/Los_Angeles').format('ddd HH:MM:ss z')} #{alert.default.hostname} #{alert.default.program}: #{alert.default.message}"
+        robot.messageRoom "#releng-hubot-test", "#{msg.topic} [sns alert] #{m.tz('America/Los_Angeles').format('ddd HH:MM:ss z')} #{alert.default.hostname} #{alert.default.program}: #{alert.default.message}"
