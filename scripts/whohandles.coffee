@@ -39,7 +39,7 @@ class WhoHandles
         regex = ///#{topic}///i
         @cache = @cache.filter (n) -> ! n.key.match regex
         @robot.brain.data.whohandles = @cache
-    deleteAll: () ->
+    deleteAll: ->
         @cache = []
         @robot.brain.data.whohandles = @cache
     findTopic: (topic) ->

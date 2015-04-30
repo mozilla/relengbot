@@ -8,29 +8,51 @@
 #   None
 #
 # Commands:
-#   sns [on|off] - Turn SNS notifications to channel on or off
+#   hubot sns [on|off] - Turn SNS notifications to channel on or off
+#   hubot sns status - return current status of SNS publication to channel
 #
 # Notes:
 #   This bot is controled by the topic from the ARN set in SNS.
 #   The topic == the channel that the bot will try to message when
 #   it receives a notification.
 #
-#   The on/off switch is called "sns-publish-irc-messages" and is
-#   stored in the robot's brain, likely Redis.
+#   The on/off switch is stored in the robot's brain.
 #
 # Author:
 #   @selenamarie
 
 moment = require 'moment-timezone'
 
-module.exports = (robot) ->
-    robot.hear /sns off/, (res) ->
-        robot.brain.set 'sns-publish-irc-messages', false
-        res.reply "Thanks! Stopping SNS notification to IRC."
+class SNSConfig
+    constructor: (@robot) ->
+        @cache = []
+        @robot.brain.on 'loaded', =>
+            if @robot.brain.data.snsconfig
+                @cache = @robot.brain.data.snsconfig
+    turnOn: ->
+        @cache.push "publish"
+        @robot.brain.data.snsconfig = @cache
+    turnOff: ->
+        @cache = []
+        @robot.brain.data.snsconfig = @cache
+    status: -> "publish" in @cache
 
-    robot.hear /sns on/, (res) ->
-        robot.brain.set 'sns-publish-irc-messages', true
-        res.reply "Thanks! Starting SNS notification to IRC."
+module.exports = (robot) ->
+    snsConfig = new SNSConfig robot
+
+    robot.respond /sns off$/, (res) ->
+        snsConfig.turnOff()
+        res.reply "Thanks! Stopping SNS notifications."
+
+    robot.respond /sns on$/, (res) ->
+        snsConfig.turnOn()
+        res.reply "Thanks! Starting SNS notifications."
+
+    robot.respond /sns status$/, (res) ->
+        if snsConfig.status()
+            res.reply "SNS notification Publishing is on"
+        else
+            res.reply "SNS notification publishing is off"
 
     robot.on "sns:notification", (msg) ->
         """
@@ -41,8 +63,8 @@ module.exports = (robot) ->
             Subject:    #{msg.subject}
             Message:    #{msg.message}
         """
-        publish_ok = robot.brain.get('sns-publish-irc-messages')
-        return if publish_ok isnt true
+        publish = robot.brain.get('sns-publish-irc-messages')
+        return if not snsConfig.status()
 
         alert = JSON.parse(msg.message)
         # Format:
