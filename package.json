@@ -14,7 +14,8 @@
     "hubot-scripts": "^2.5.16",
     "hubot-sns": "^0.2.1",
     "moment-timezone": "~0.3",
-    "hubot-mute": "^0.0.5"
+    "hubot-mute": "^0.0.5",
+    "hubot-auth": "^1.2.0"
   },
   "engines": {
     "node": "0.10.x"
