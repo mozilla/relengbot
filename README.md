@@ -212,3 +212,8 @@ Add the subdomain hubot should connect to. If you web URL looks like
 
 You may want to get comfortable with `heroku logs` and `heroku restart` if
 you're having issues.
+
+### Authentication
+
+Assign roles to users and restrict command access in other scripts.
+More details https://github.com/hubot-scripts/hubot-auth
