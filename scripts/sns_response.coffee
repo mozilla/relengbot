@@ -65,6 +65,7 @@ module.exports = (robot) ->
         """
         return if not snsConfig.status()
 
+        console.log "msg.message: ", msg.message
         alert = JSON.parse(msg.message)
         # Format:
         # timestamp hostname program message
