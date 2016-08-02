@@ -66,9 +66,9 @@ module.exports = (robot) ->
         return if not snsConfig.status()
 
         console.log "msg.message: ", msg.message
-        alert = JSON.parse(msg.message)
         # Format:
         # timestamp hostname program message
         # parse the date
-        m = new moment(alert.default.received_at)
-        robot.messageRoom "##{msg.topic}", "[sns alert] #{m.tz('America/Los_Angeles').format('ddd HH:MM:ss z')} #{alert.default.hostname} #{alert.default.program}: #{alert.default.message}"
+        timestamp = msg.message.substring(0,15)
+        m = moment(new Date(timestamp))
+        robot.messageRoom "##{msg.topic}", "[sns alert] #{m.tz('America/Los_Angeles').format('ddd HH:MM:ss z')} #{msg.message.substring(16)}"
