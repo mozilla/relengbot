@@ -68,7 +68,4 @@ module.exports = (robot) ->
         console.log "msg.message: ", msg.message
         # Format:
         # timestamp hostname program message
-        # parse the date
-        timestamp = msg.message.substring(0,15)
-        m = moment(new Date(timestamp))
-        robot.messageRoom "##{msg.topic}", "[sns alert] #{m.tz('America/Los_Angeles').format('ddd HH:MM:ss z')} #{msg.message.substring(16)}"
+        robot.messageRoom "##{msg.topic}", "[sns alert] #{msg.message}"
