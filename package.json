@@ -9,7 +9,7 @@
     "hubot-diagnostics": "0.0.1",
     "hubot-help": "^0.1.1",
     "hubot-heroku-keepalive": "0.0.4",
-    "hubot-irc": "^0.2.7",
+    "hubot-irc": "^0.4.0",
     "hubot-redis-brain": "0.0.2",
     "hubot-scripts": "^2.5.16",
     "hubot-sns": "^0.2.1",
