@@ -1,8 +1,8 @@
 {
   "name": "relengbot",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "private": true,
-  "author": "Selena Deckelmann <selenamarie@gmail.com>",
+  "author": "Chris Cooper <coop@mozilla.com>",
   "description": "A helpful robot for Mozilla Release Engineering",
   "dependencies": {
     "hubot": "^2.12.0",
